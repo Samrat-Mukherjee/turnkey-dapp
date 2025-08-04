@@ -1,7 +1,16 @@
 "use client";
-import { Auth } from "@turnkey/sdk-react";
+import { Auth, TurnkeyThemeProvider } from "@turnkey/sdk-react";
+import { useRouter } from "next/navigation";
+
+const customTheme = {
+  "--text-primary": "#333333",
+  "--button-bg": "#4c48ff",
+  "--button-hover-bg": "#3b38e6",
+};
+
 
 export default function Home() {
+  const router = useRouter();
   type Config = {
     authConfig: AuthConfig;
     configOrder: ConfigOrder[];
@@ -34,17 +43,20 @@ export default function Home() {
 
   const onAuthSuccess = async () => {
     console.log("✅ Auth Success:");
+    router.push("/dashboard");
   };
   const onError = (err: any) => {
     console.error("❌ Auth Error:", err);
   };
   return (
     <div>
-      <Auth
+     <TurnkeyThemeProvider theme={customTheme} >
+       <Auth
         {...config}
         onAuthSuccess={onAuthSuccess}
         onError={(e) => onError(e)}
       />
+     </TurnkeyThemeProvider>
     </div>
   );
 }

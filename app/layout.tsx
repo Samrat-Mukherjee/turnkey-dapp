@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { TurnkeyProvider } from "@turnkey/sdk-react";
+import "@turnkey/sdk-react/styles";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,13 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} antialiased`}
-      >
-        <TurnkeyProvider config={config}>
-          {children}
-          </TurnkeyProvider>
-        
+      <body className={`${inter.variable} antialiased`}>
+        <TurnkeyProvider config={config}>{children}</TurnkeyProvider>
       </body>
     </html>
   );
