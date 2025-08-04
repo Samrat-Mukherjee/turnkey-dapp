@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@turnkey/sdk-browser": "^5.4.1",
     "@turnkey/sdk-react": "^5.2.11",
     "@turnkey/sdk-types": "^0.2.1",
     "next": "^14.0.0",

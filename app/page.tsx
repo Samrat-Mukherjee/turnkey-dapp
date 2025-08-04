@@ -42,6 +42,7 @@ export default function Home() {
   };
 
   const onAuthSuccess = async () => {
+    
     console.log("✅ Auth Success:");
     router.push("/dashboard");
   };
