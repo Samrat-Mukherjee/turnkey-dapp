@@ -1,0 +1,18 @@
+.activityDiv {
+  background-color: #f7f7f7;
+  height: auto;
+  width: 90%;
+  margin: 2rem auto;
+  padding: 0.8rem 0.8rem;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.activityRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin: 1.5rem 0px;
+}

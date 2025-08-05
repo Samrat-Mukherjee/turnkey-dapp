@@ -28,13 +28,8 @@ export function useTurnkeyAuth() {
             walletName,
             accounts: [WALLET_DERIVATION_CONFIG.tron],
           });
-
-          console.log("✅ Auth Success - Created new Tron wallet:", wallet);
         } else {
-          console.log(
-            "✅ Auth Success - Using existing wallet: ",
-            existingWallets?.wallets
-          );
+          console.log("✅ Auth Success - Using existing wallet: ");
         }
       }
 
