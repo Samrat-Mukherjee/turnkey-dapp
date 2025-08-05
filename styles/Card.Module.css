@@ -8,7 +8,7 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.walletbutton {
+.walletbtn {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,12 +30,10 @@
   
 }
 
-.buttonOption button {
+.buttonOptionBtn {
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  /* padding-top: .5rem;
-    padding-bottom: .5rem; */
   cursor: pointer;
   background-color: rgb(192, 192, 196);
   color: black;
@@ -47,7 +45,7 @@
 }
 
 
-.buttonOption button:hover {
+.buttonOptionBtn:hover {
     background-color: rgb(137, 137, 138);
 }
 

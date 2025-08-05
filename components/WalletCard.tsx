@@ -35,8 +35,6 @@ export function WalletCard() {
   }
 
   function getFunds() {
-  
-
     const toastId = toast.loading("Processing transaction...");
 
     setTimeout(() => {
@@ -51,7 +49,6 @@ export function WalletCard() {
         });
 
         setBalance(10);
-       
       } catch (error) {
         toast.update(toastId, {
           render: "❌ Something went wrong.",
@@ -104,31 +101,31 @@ export function WalletCard() {
 
   return (
     <div className={style.card} id="app">
-      <div className={style.walletbutton}>
+      <div className={style.walletbtn}>
         <h1 className={style.h1}>Tron Wallet</h1>
         <div className={style.buttonOption}>
-          <button onClick={getFunds}>
+          <button onClick={getFunds} className={style.buttonOptionBtn}>
             <FaHandHoldingUsd /> Add Fund
           </button>
-          <button onClick={openModal}>
+          <button onClick={openModal} className={style.buttonOptionBtn}>
             <FaArrowUp /> Send
           </button>
-          <button>
+          <button className={style.buttonOptionBtn}>
             <FaArrowDown />
             Receive
           </button>
-          <button>
+          <button className={style.buttonOptionBtn}>
             <FaArrowRightFromBracket /> Export
           </button>
-          <button onClick={ handleLogout}>LogOut☹️</button>
+          <button onClick={handleLogout} className={style.buttonOptionBtn}>
+            LogOut☹️
+          </button>
         </div>
       </div>
 
       <button
         className={style.address}
-        onClick={() =>
-          copyAddress(tronAddress)
-        }
+        onClick={() => copyAddress(tronAddress)}
       >
         {tronAddress ? shortenAddress(tronAddress) : "Fetching address..."}
         <MdContentCopy />
