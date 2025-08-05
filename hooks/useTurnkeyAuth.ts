@@ -1,4 +1,5 @@
 import { WALLET_DERIVATION_CONFIG } from "@/lib/constants/wallets";
+import { onError } from "@/lib/utills/onError";
 import { useTurnkey } from "@turnkey/sdk-react";
 import { useRouter } from "next/navigation";
 
@@ -25,7 +26,7 @@ export function useTurnkeyAuth() {
           const wallet = await indexedDbClient?.createWallet({
             organizationId,
             walletName,
-            accounts: [WALLET_DERIVATION_CONFIG.tron],
+          accounts: [WALLET_DERIVATION_CONFIG.tron]
           });
 
           console.log("✅ Auth Success - Created new Tron wallet:", wallet);
@@ -40,7 +41,7 @@ export function useTurnkeyAuth() {
       router.push("/dashboard");
     } catch (error) {
       console.error("❌ Error creating wallet:", error);
-      // onError(error);
+      onError(error)
     }
   };
 

@@ -14,7 +14,8 @@
     "@turnkey/sdk-types": "^0.2.1",
     "next": "^14.0.0",
     "react": "^18.2.75",
-    "react-dom": "^18.2.75"
+    "react-dom": "^18.2.75",
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

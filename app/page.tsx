@@ -3,15 +3,15 @@ import { Auth, TurnkeyThemeProvider } from "@turnkey/sdk-react";
 import { turnConfig } from "@/lib/auth/turnkey";
 import { useTurnkeyAuth } from "@/hooks/useTurnkeyAuth";
 import { customTheme } from "@/lib/theme/customTheme";
+import { ToastProvider } from "@/components/ToastProvider";
+import { onError } from "@/lib/utills/onError";
 
 
 
 export default function Home() {
   const { onAuthSuccess } = useTurnkeyAuth();
 
-  const onError = (err: any) => {
-    console.error("❌ Auth Error:", err);
-  };
+ 
 
   return (
     <div>
@@ -22,6 +22,7 @@ export default function Home() {
           onError={(e) => onError(e)}
         />
       </TurnkeyThemeProvider>
+       <ToastProvider />
     </div>
   );
 }

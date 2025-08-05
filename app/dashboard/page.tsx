@@ -50,7 +50,7 @@ export default function Dashboard() {
     };
 
     getWalletInfo();
-  }, [session]); // This will run whenever session changes
+  }, [session]); 
 
   const fetchSession = async () => {
     try {
