@@ -11,7 +11,6 @@ export function useDashboardLogic() {
   const [tronAddress, setTronAddress] = useState<string>("");
   const [walletBalance, setWalletBalance] = useState<string>("0");
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
   const client = indexedDbClient;
 
   useEffect(() => {
