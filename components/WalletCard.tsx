@@ -9,7 +9,7 @@ import { MdContentCopy } from "react-icons/md";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
 
-//import style from "@/styles/Card.module.css";
+
 // Bind modal to your app root
 //Modal.setAppElement("#app");
 
