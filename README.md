@@ -1,6 +1,6 @@
 # 🔐 TRON → CELO Cross-Chain Transfer App with Turnkey Embedded Wallet
 
-A demo **Next.js** application simulating a token transfer from **TRON** to **CELO**, using **Turnkey** for embedded wallets. Styled with `Tailwind CSS` and `shadcn/ui`, the app features a modal interface, balance tracking, and mock transaction logic.
+A demo **Next.js** application simulating a token transfer from **TRON** to **CELO**, using **Turnkey** for embedded wallets. Styled with `Tailwind CSS`, the app features a modal interface, balance tracking, and mock transaction logic.
 
 ---
 
