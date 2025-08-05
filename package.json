@@ -14,8 +14,7 @@
     "@turnkey/sdk-types": "^0.2.1",
     "next": "^14.0.0",
     "react": "^18.2.75",
-    "react-dom": "^18.2.75",
-    "viem": "^2.33.2"
+    "react-dom": "^18.2.75"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
