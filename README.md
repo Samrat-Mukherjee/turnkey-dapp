@@ -106,7 +106,7 @@ await createWalletAccount({
   subOrgId,
   walletId,
   accountName: "TRON Wallet",
-  addressFormat: "TRON",
+  addressFormat: "ADDRESS_FORMAT_TRON",
   curve: "secp256k1",
   derivationPath: "m/44'/195'/0'/0/0", // TRON derivation path
 });
