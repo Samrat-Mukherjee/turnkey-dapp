@@ -5,24 +5,23 @@ import { useTurnkeyAuth } from "@/hooks/useTurnkeyAuth";
 import { customTheme } from "@/lib/theme/customTheme";
 import { ToastProvider } from "@/components/ToastProvider";
 import { onError } from "@/lib/utills/onError";
-
-
+import style from "@/styles/Home.module.css";
 
 export default function Home() {
   const { onAuthSuccess } = useTurnkeyAuth();
 
- 
-
   return (
-    <div>
-      <TurnkeyThemeProvider theme={customTheme}>
-        <Auth
-          {...turnConfig}
-          onAuthSuccess={onAuthSuccess}
-          onError={(e) => onError(e)}
-        />
-      </TurnkeyThemeProvider>
-       <ToastProvider />
-    </div>
+    <>
+      <div className={style.background}>
+        <TurnkeyThemeProvider theme={customTheme}>
+          <Auth
+            {...turnConfig}
+            onAuthSuccess={onAuthSuccess}
+            onError={(e) => onError(e)}
+          />
+        </TurnkeyThemeProvider>
+        <ToastProvider />
+      </div>
+    </>
   );
 }
