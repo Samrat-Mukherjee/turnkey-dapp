@@ -1,7 +1,6 @@
 import { useDashboardLogic } from "@/hooks/useDashboardLogic";
 import { shortenAddress } from "@/lib/utills/addressShort";
 import { copyAddress } from "@/lib/utills/copyAddress";
-import style from "@/styles/Card.module.css";
 import modalStyle from "@/styles/ModalStyles.module.css";
 import { useState } from "react";
 import { FaArrowDown, FaArrowUp, FaHandHoldingUsd } from "react-icons/fa";
@@ -10,6 +9,7 @@ import { MdContentCopy } from "react-icons/md";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
 
+//import style from "@/styles/Card.module.css";
 // Bind modal to your app root
 //Modal.setAppElement("#app");
 
@@ -100,31 +100,31 @@ export function WalletCard() {
   };
 
   return (
-    <div className={style.card} id="app">
-      <div className={style.walletbtn}>
-        <h1 className={style.h1}>Tron Wallet</h1>
-        <div className={style.buttonOption}>
-          <button onClick={getFunds} className={style.buttonOptionBtn}>
+    <div className={modalStyle.card} id="app">
+      <div className={modalStyle.walletbtn}>
+        <h1 className={modalStyle.h1}>Tron Wallet</h1>
+        <div className={modalStyle.buttonOption}>
+          <button onClick={getFunds} className={modalStyle.buttonOptionBtn}>
             <FaHandHoldingUsd /> Add Fund
           </button>
-          <button onClick={openModal} className={style.buttonOptionBtn}>
+          <button onClick={openModal} className={modalStyle.buttonOptionBtn}>
             <FaArrowUp /> Send
           </button>
-          <button className={style.buttonOptionBtn}>
+          <button className={modalStyle.buttonOptionBtn}>
             <FaArrowDown />
             Receive
           </button>
-          <button className={style.buttonOptionBtn}>
+          <button className={modalStyle.buttonOptionBtn}>
             <FaArrowRightFromBracket /> Export
           </button>
-          <button onClick={handleLogout} className={style.buttonOptionBtn}>
+          <button onClick={handleLogout} className={modalStyle.buttonOptionBtn}>
             LogOut☹️
           </button>
         </div>
       </div>
 
       <button
-        className={style.address}
+        className={modalStyle.address}
         onClick={() => copyAddress(tronAddress)}
       >
         {tronAddress ? shortenAddress(tronAddress) : "Fetching address..."}
