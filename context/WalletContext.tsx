@@ -10,6 +10,7 @@ import {
 import { useTurnkey } from "@turnkey/sdk-react";
 import { Session } from "@turnkey/sdk-types";
 import { onError } from "@/lib/utils/onError";
+import { TurnkeyIndexedDbClient } from "@turnkey/sdk-browser";
 
 interface WalletContextType {
   loading: boolean;
@@ -33,7 +34,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const { turnkey, indexedDbClient } = useTurnkey();
 
   // Keep client in state to avoid running before ready
-  const [client, setClient] = useState<any>(null);
+  const [client, setClient] = useState<TurnkeyIndexedDbClient | null>(null);
 
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
@@ -44,7 +45,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
   const getEthAddress = async (): Promise<string> => {
     try {
-      const wallets = await client.getWallets({
+      const wallets = await client?.getWallets({
         organizationId: session?.organizationId,
       });
 
@@ -55,7 +56,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       // Get accounts for all wallets
       const walletsWithAccounts = await Promise.all(
         wallets.wallets.map(async (wallet: { walletId: string }) => {
-          const accounts = await client.getWalletAccounts({
+          const accounts = await client?.getWalletAccounts({
             organizationId: session?.organizationId,
             walletId: wallet.walletId,
           });

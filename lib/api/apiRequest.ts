@@ -7,7 +7,7 @@ export async function apiRequest(endpoint: string, options: RequestInit = {}) {
     },
   });
 
-  let data = await res.json();
+  const data = await res.json();
 
   if (!res.ok) {
     throw new Error(`API Error: ${data?.error}`);

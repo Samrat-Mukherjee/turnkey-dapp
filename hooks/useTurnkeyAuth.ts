@@ -25,7 +25,7 @@ export function useTurnkeyAuth() {
         if (!existingWallets?.wallets.length) {
           const walletName = "My ETHEREUM Wallet";
           // Create wallet with ONLY ETHEREUM configuration
-          const wallet = await indexedDbClient?.createWallet({
+          await indexedDbClient?.createWallet({
             organizationId,
             walletName,
             accounts: [WALLET_DERIVATION_CONFIG.tron],
