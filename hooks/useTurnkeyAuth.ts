@@ -1,5 +1,5 @@
 import { WALLET_DERIVATION_CONFIG } from "@/lib/constants/wallets";
-import { onError } from "@/lib/utills/onError";
+import { onError } from "@/lib/utils/onError";
 import { useTurnkey } from "@turnkey/sdk-react";
 import { useRouter } from "next/navigation";
 
@@ -19,10 +19,10 @@ export function useTurnkeyAuth() {
           organizationId,
         });
 
-        // Create a new Tron wallet only if user has no wallets
+        // Create a new Ethereum wallet only if user has no wallets
         if (!existingWallets?.wallets.length) {
-          const walletName = "My Tron Wallet";
-          // Create wallet with ONLY Tron configuration
+          const walletName = "My ETHEREUM Wallet";
+          // Create wallet with ONLY ETHEREUM configuration
           const wallet = await indexedDbClient?.createWallet({
             organizationId,
             walletName,

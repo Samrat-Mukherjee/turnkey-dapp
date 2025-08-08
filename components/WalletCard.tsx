@@ -1,6 +1,6 @@
 import { useDashboardLogic } from "@/hooks/useDashboardLogic";
-import { shortenAddress } from "@/lib/utills/addressShort";
-import { copyAddress } from "@/lib/utills/copyAddress";
+import { shortenAddress } from "@/lib/utils/addressShort";
+import { copyAddress } from "@/lib/utils/copyAddress";
 import modalStyle from "@/styles/ModalStyles.module.css";
 import { useState } from "react";
 import { FaArrowDown, FaArrowUp, FaHandHoldingUsd } from "react-icons/fa";
@@ -16,7 +16,7 @@ import Modal from "react-modal";
 export function WalletCard() {
   const {
     loading,
-    tronAddress,
+    ethAddress,
 
     handleLogout,
   } = useDashboardLogic();
@@ -40,7 +40,7 @@ export function WalletCard() {
     setTimeout(() => {
       try {
         toast.update(toastId, {
-          render: "✅ Success! 10 TRX has been deposited.",
+          render: "✅ Success! 0.001 ETH has been deposited.",
           type: "success",
           isLoading: false,
           autoClose: 3000,
@@ -48,7 +48,7 @@ export function WalletCard() {
           draggable: true,
         });
 
-        setBalance(10);
+        setBalance(0.001);
       } catch (error) {
         toast.update(toastId, {
           render: "❌ Something went wrong.",
@@ -74,7 +74,7 @@ export function WalletCard() {
     }
 
     if (amt > balance) {
-      toast.error("❌ Insufficient TRON balance");
+      toast.error("❌ Insufficient ETHEREUM balance");
       return;
     }
 
@@ -85,7 +85,7 @@ export function WalletCard() {
       setCeloBalance((prev) => prev + amt);
 
       toast.update(toastId, {
-        render: `✅ Successfully transferred ${amt} TRX to Celo address: ${shortenAddress(
+        render: `✅ Successfully transferred ${amt} ETH to Celo address: ${shortenAddress(
           address
         )}`,
         type: "success",
@@ -101,8 +101,8 @@ export function WalletCard() {
 
   return (
     <div className={modalStyle.card} id="app">
-      <div className={modalStyle.walletbtn}>
-        <h1 className={modalStyle.h1}>Tron Wallet</h1>
+      <div className={modalStyle.walletButton}>
+        <h1 className={modalStyle.h1}>ETHEREUM Wallet</h1>
         <div className={modalStyle.buttonOption}>
           <button onClick={getFunds} className={modalStyle.buttonOptionBtn}>
             <FaHandHoldingUsd /> Add Fund
@@ -125,18 +125,18 @@ export function WalletCard() {
 
       <button
         className={modalStyle.address}
-        onClick={() => copyAddress(tronAddress)}
+        onClick={() => copyAddress(ethAddress)}
       >
-        {tronAddress ? shortenAddress(tronAddress) : "Fetching address..."}
+        {ethAddress ? shortenAddress(ethAddress) : "Fetching address..."}
         <MdContentCopy />
       </button>
 
       <div style={{ marginTop: "0.5rem" }}>
         <p style={{ fontSize: "2rem", fontWeight: "700" }}>
-          ${(balance * 0.33).toFixed(2)}
+          ${(balance * 3923.84).toFixed(2)}
         </p>
         <span style={{ fontSize: "0.8rem", color: "gray" }}>
-          {balance.toFixed(2)} TRX
+          {balance} ETH
         </span>
       </div>
 
@@ -149,7 +149,7 @@ export function WalletCard() {
         <button onClick={closeModal} className={modalStyle.closeButton}>
           &times;
         </button>
-        <h3 className={modalStyle.heading}>Transfer from TRON → CELO</h3>
+        <h3 className={modalStyle.heading}>Transfer from ETHEREUM → CELO</h3>
 
         <input
           className={modalStyle.input}

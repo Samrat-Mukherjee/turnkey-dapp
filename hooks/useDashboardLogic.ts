@@ -2,13 +2,14 @@ import { useTurnkey } from "@turnkey/sdk-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Session } from "@turnkey/sdk-types";
+import { onError } from "@/lib/utils/onError";
 
 export function useDashboardLogic() {
   const { turnkey, indexedDbClient } = useTurnkey();
   const [session, setSession] = useState<Session | null>(null);
   const [message, setMessage] = useState("");
   const [signature, setSignature] = useState<string | null>(null);
-  const [tronAddress, setTronAddress] = useState<string>("");
+  const [ethAddress, setEthAddress] = useState<string>("");
   const [walletBalance, setWalletBalance] = useState<string>("0");
   const [loading, setLoading] = useState(true);
   const client = indexedDbClient;
@@ -21,9 +22,9 @@ export function useDashboardLogic() {
         if (currentSession?.organizationId) {
           setSession(currentSession);
         }
-        
       } catch (err) {
         console.error("Session fetch error:", err);
+        onError(err)
       }
     };
     initialize();
@@ -33,12 +34,13 @@ export function useDashboardLogic() {
     const fetchWallet = async () => {
       if (!session) return;
       try {
-        const address = await getTronAddress(session.organizationId);
-        setTronAddress(address);
-      
-        //await fetchTronBalance(address);
+        const address = await getEthAddress(session.organizationId);
+        setEthAddress(address);
+
+       
       } catch (err) {
         console.error("Wallet fetch error:", err);
+        onError(err)
       } finally {
         setLoading(false);
       }
@@ -46,35 +48,28 @@ export function useDashboardLogic() {
     fetchWallet();
   }, [session]);
 
-  const fetchTronBalance = async (address: string) => {
-    try {
-      const response = await fetch(`https://nile.trongrid.io/v1/accounts/${address}`);
-      const data = await response.json();
-      const balance = data?.data?.[0]?.balance ?? 0;
-      setWalletBalance((balance / 1_000_000).toString());
-    } catch (err) {
-      console.error("Balance error:", err);
-      setWalletBalance("0");
-    }
-  };
-
-  const getTronAddress = async (organizationId: string) => {
+  const getEthAddress = async (organizationId: string) => {
     const wallets = await client?.getWallets({ organizationId });
     for (const wallet of wallets?.wallets || []) {
-      const accounts = await client?.getWalletAccounts({ organizationId, walletId: wallet.walletId });
-      const tronAccount = accounts?.accounts?.find(
-        (a) => a.addressFormat === "ADDRESS_FORMAT_ETHEREUM" && a.path.startsWith("m/44'/60'")
+      const accounts = await client?.getWalletAccounts({
+        organizationId,
+        walletId: wallet.walletId,
+      });
+      const ethAccount = accounts?.accounts?.find(
+        (a) =>
+          a.addressFormat === "ADDRESS_FORMAT_ETHEREUM" &&
+          a.path.startsWith("m/44'/60'")
       );
-      if (tronAccount) return tronAccount.address;
+      if (ethAccount) return ethAccount.address;
     }
     return "";
   };
 
   const signMessage = async () => {
     try {
-      const signWith = await getTronAddress(session?.organizationId || "");
-      
-      if (!signWith) throw new Error("No TRON wallet found");
+      const signWith = await getEthAddress(session?.organizationId || "");
+
+      if (!signWith) throw new Error("No ETHEREUM wallet found");
       const result = await client?.signRawPayload({
         payload: Buffer.from(message).toString("hex"),
         signWith,
@@ -83,7 +78,6 @@ export function useDashboardLogic() {
       });
 
       if (result?.r && result?.s && result?.v) {
-       
         setSignature(`0x${result.r}${result.s}${result.v}`);
       } else {
         setSignature(null);
@@ -91,6 +85,7 @@ export function useDashboardLogic() {
     } catch (err) {
       console.error("Signature error:", err);
       setSignature("Error signing message");
+      onError(err)
     }
   };
 
@@ -98,22 +93,19 @@ export function useDashboardLogic() {
     try {
       await turnkey?.logout();
       await client?.clear();
-     
-     window.location.href = "/";
-    } 
-    catch (err) {
+
+      window.location.href = "/";
+    } catch (err) {
       console.error("Logout failed:", err);
+      onError(err)
     }
   };
 
-  const handleSuccess = (txHash: string) => {
-    
-  
-  };
+  const handleSuccess = (txHash: string) => {};
 
   return {
     loading,
-    tronAddress,
+    ethAddress,
     walletBalance,
     message,
     signature,

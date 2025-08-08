@@ -1,4 +1,6 @@
-export const WALLET_DERIVATION_CONFIG: any = {
+import { WalletDerivationConfig } from "@/types/wallets";
+
+export const WALLET_DERIVATION_CONFIG: WalletDerivationConfig = {
   tron: {
     curve: "CURVE_SECP256K1",
     pathFormat: "PATH_FORMAT_BIP32",

@@ -1,6 +1,6 @@
-# 🔐 TRON → CELO Cross-Chain Transfer App with Turnkey Embedded Wallet
+# 🔐 ETHEREUM → CELO Cross-Chain Transfer App with Turnkey Embedded Wallet
 
-A demo **Next.js** application simulating a token transfer from **TRON** to **CELO**, using **Turnkey** for embedded wallets. Styled with `Tailwind CSS`, the app features a modal interface, balance tracking, and mock transaction logic.
+A demo **Next.js** application simulating a token transfer from **ETHEREUM** to **CELO**, using **Turnkey** for embedded wallets. Styled with `Tailwind CSS`, the app features a modal interface, balance tracking, and mock transaction logic.
 
 ---
 
@@ -8,7 +8,7 @@ A demo **Next.js** application simulating a token transfer from **TRON** to **CE
 
 - 🛂 **Embedded wallet login via Turnkey** using **Passkey or Email**
 - 🔐 Secure wallet creation and account management
-- 📤 Simulated TRON → CELO transfers
+- 📤 Simulated ETHEREUM → CELO transfers
 - 💳 Real-time (mock) balance updates
 - 🖼️ Beautiful modal UI with backdrop blur
 - 📢 Toast notifications for success and validation errors
@@ -93,11 +93,11 @@ Upon successful login, Turnkey creates a sub-organization for each user. Wallet 
 
 ### 4. Creating Blockchain-Specific Wallet Accounts
 
-To create an account for a specific blockchain (like TRON or Ethereum), you need to:
+To create an account for a specific blockchain (like ETHEREUM or Ethereum), you need to:
 
 Provide a valid BIP32 derivationPath
 
-Specify the addressFormat for that blockchain (e.g., "TRON" or "EVM")
+Specify the addressFormat for that blockchain (e.g., "ETHEREUM" or "EVM")
 
 ```tsx
 await createWalletAccount({
@@ -105,10 +105,10 @@ await createWalletAccount({
   organizationId,
   subOrgId,
   walletId,
-  accountName: "TRON Wallet",
-  addressFormat: "ADDRESS_FORMAT_TRON",
+  accountName: "ETHEREUM Wallet",
+  addressFormat: "ADDRESS_FORMAT_ETHEREUM",
   curve: "secp256k1",
-  derivationPath: "m/44'/195'/0'/0/0", // TRON derivation path
+  derivationPath: "m/44'/195'/0'/0/0", // ETHEREUM derivation path
 });
 ```
 

@@ -1,6 +1,6 @@
 // components/ActivityRow.tsx
 
-import { shortenAddress } from "@/lib/utills/addressShort";
+import { shortenAddress } from "@/lib/utils/addressShort";
 
 import style from "@/styles/Activity.module.css";
 interface Activity {
