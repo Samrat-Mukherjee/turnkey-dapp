@@ -4,6 +4,7 @@ import "./globals.css";
 import { TurnkeyProvider } from "@turnkey/sdk-react";
 import "@turnkey/sdk-react/styles";
 import { config } from "@/config";
+import { WalletProvider } from "@/context/WalletContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <TurnkeyProvider config={config}>{children}</TurnkeyProvider>
+        <TurnkeyProvider config={config}>
+          <WalletProvider>{children}</WalletProvider>
+        </TurnkeyProvider>
       </body>
     </html>
   );

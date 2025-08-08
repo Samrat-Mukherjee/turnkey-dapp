@@ -1,3 +1,6 @@
+import { apiRequest } from "@/lib/api/apiRequest";
+import { faucet } from "@/lib/faucet/getFaucet";
+import { onError } from "@/lib/utils/onError";
 import React, { useState } from "react";
 
 interface FaucetFormProps {
@@ -18,16 +21,9 @@ const FaucetForm: React.FC<FaucetFormProps> = ({ onSuccess }) => {
     setTxHash("");
 
     try {
-      const response = await fetch("/api/faucet", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ address, network }),
-      });
+      const response = await faucet.requestFund(address, network);
 
       const data = await response.json();
-     
 
       if (data.success) {
         setMessage(data.message);
@@ -40,7 +36,8 @@ const FaucetForm: React.FC<FaucetFormProps> = ({ onSuccess }) => {
       }
     } catch (error) {
       setMessage("Network error occurred");
-      console.error("Error:", error);
+   
+      onError(error);
     } finally {
       setLoading(false);
     }

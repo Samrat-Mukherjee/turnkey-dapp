@@ -2,10 +2,12 @@ import { WALLET_DERIVATION_CONFIG } from "@/lib/constants/wallets";
 import { onError } from "@/lib/utils/onError";
 import { useTurnkey } from "@turnkey/sdk-react";
 import { useRouter } from "next/navigation";
+import { useWallet } from "./useWallet";
 
 export function useTurnkeyAuth() {
   const router = useRouter();
   const { turnkey, indexedDbClient } = useTurnkey();
+  const { refreshWallet } = useWallet();
 
   const onAuthSuccess = async () => {
     try {
@@ -29,10 +31,14 @@ export function useTurnkeyAuth() {
             accounts: [WALLET_DERIVATION_CONFIG.tron],
           });
         } else {
-          console.log("✅ Auth Success - Using existing wallet: ");
+          console.log("✅ Auth Success - Using existing wallet");
         }
+        
+        // Refresh wallet before navigation
+        await refreshWallet();
       }
 
+      // Navigate to dashboard after wallet is initialized
       router.push("/dashboard");
     } catch (error) {
       console.error("❌ Error creating wallet:", error);

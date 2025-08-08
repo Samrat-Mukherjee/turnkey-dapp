@@ -1,14 +1,14 @@
-import { useDashboardLogic } from "@/hooks/useDashboardLogic";
+import { useWallet } from "@/hooks/useWallet";
 import { shortenAddress } from "@/lib/utils/addressShort";
 import { copyAddress } from "@/lib/utils/copyAddress";
 import modalStyle from "@/styles/ModalStyles.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowDown, FaArrowUp, FaHandHoldingUsd } from "react-icons/fa";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
 import { MdContentCopy } from "react-icons/md";
 import { toast } from "react-toastify";
 import Modal from "react-modal";
-
+import { onError } from "@/lib/utils/onError";
 
 // Bind modal to your app root
 //Modal.setAppElement("#app");
@@ -17,9 +17,30 @@ export function WalletCard() {
   const {
     loading,
     ethAddress,
+    refreshWallet,
+    getEthAddress,
 
     handleLogout,
-  } = useDashboardLogic();
+  } = useWallet();
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      try {
+        if (!loading && !ethAddress) {
+          const address = await getEthAddress();
+
+          if (!address) {
+            // If no address is found, try refreshing the wallet
+            await refreshWallet();
+          }
+        }
+      } catch (error) {
+        onError(error);
+      }
+    };
+    fetchAddress();
+  }, [loading, ethAddress, getEthAddress, refreshWallet]);
+
   const [balance, setBalance] = useState(0.0);
   const [celoBalance, setCeloBalance] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,7 +95,7 @@ export function WalletCard() {
     }
 
     if (amt > balance) {
-      toast.error("❌ Insufficient ETHEREUM balance");
+      toast.error("❌ Insufficient ETH balance");
       return;
     }
 
@@ -135,9 +156,7 @@ export function WalletCard() {
         <p style={{ fontSize: "2rem", fontWeight: "700" }}>
           ${(balance * 3923.84).toFixed(2)}
         </p>
-        <span style={{ fontSize: "0.8rem", color: "gray" }}>
-          {balance} ETH
-        </span>
+        <span style={{ fontSize: "0.8rem", color: "gray" }}>{balance} ETH</span>
       </div>
 
       <Modal
