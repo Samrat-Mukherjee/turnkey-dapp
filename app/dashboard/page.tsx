@@ -3,7 +3,6 @@
 import { WalletCard } from "@/components/WalletCard";
 import NavBar from "@/components/NavBar";
 import { ActivityCard } from "@/components/ActivityCard";
-import FaucetForm from "@/components/FaucetForm";
 
 export default function Dashboard() {
   return (
@@ -12,7 +11,6 @@ export default function Dashboard() {
         <div className="max-w-3xl mx-auto space-y-8 px-4">
           <WalletCard />
           <ActivityCard />
-          <FaucetForm />
         </div>
       </div>
     </NavBar>

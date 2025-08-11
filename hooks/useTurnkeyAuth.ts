@@ -21,12 +21,6 @@ export function useTurnkeyAuth() {
           organizationId,
         });
 
-        console.log(
-          existingWallets?.wallets.length,
-          "Response=====================>",
-          existingWallets
-        );
-
         // Create a new Ethereum wallet only if user has no wallets
         if (existingWallets?.wallets.length < 2) {
           const walletName = "My ETHEREUM Wallet";
@@ -41,12 +35,9 @@ export function useTurnkeyAuth() {
             ],
           });
 
-          console.log("✅ New wallet created:", walletResponse);
+          console.log("✅ New wallet created:");
         } else if (existingWallets?.wallets.length == 2) {
-          console.log(
-            "✅ Auth Success - Using existing wallet ",
-            JSON.stringify(existingWallets, null, 2)
-          );
+          console.log("✅ Auth Success - Using existing wallet ");
         }
 
         // Refresh wallet before navigation

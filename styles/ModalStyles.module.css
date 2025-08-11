@@ -99,17 +99,21 @@
 }
 
 .h1 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
 }
 
 .address {
   font-size: 0.875rem;
   line-height: 1.25rem;
+  font-weight: 700;
   cursor: pointer;
   background-color: transparent;
   border: none;
   outline: none;
+  margin-top: 0.2rem;
+  margin-left: 0.2rem;
+
 }
 
 .buttonOptionBtn {
