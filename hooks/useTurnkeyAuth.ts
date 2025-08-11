@@ -21,19 +21,34 @@ export function useTurnkeyAuth() {
           organizationId,
         });
 
+        console.log(
+          existingWallets?.wallets.length,
+          "Response=====================>",
+          existingWallets
+        );
+
         // Create a new Ethereum wallet only if user has no wallets
-        if (!existingWallets?.wallets.length) {
+        if (existingWallets?.wallets.length < 2) {
           const walletName = "My ETHEREUM Wallet";
-          // Create wallet with ONLY ETHEREUM configuration
-          await indexedDbClient?.createWallet({
+
+          // Create wallet with multi-chain configuration
+          const walletResponse = await indexedDbClient.createWallet({
             organizationId,
             walletName,
-            accounts: [WALLET_DERIVATION_CONFIG.tron],
+            accounts: [
+              WALLET_DERIVATION_CONFIG?.tron,
+              WALLET_DERIVATION_CONFIG?.ethereum,
+            ],
           });
-        } else {
-          console.log("✅ Auth Success - Using existing wallet");
+
+          console.log("✅ New wallet created:", walletResponse);
+        } else if (existingWallets?.wallets.length == 2) {
+          console.log(
+            "✅ Auth Success - Using existing wallet ",
+            JSON.stringify(existingWallets, null, 2)
+          );
         }
-        
+
         // Refresh wallet before navigation
         await refreshWallet();
       }

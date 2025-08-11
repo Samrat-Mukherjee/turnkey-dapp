@@ -19,16 +19,16 @@ interface WalletContextType {
   walletBalance: string;
   message: string;
   signature: string | null;
-  getEthAddress: () => Promise<string>;
+  getAccountAddress: () => Promise<string>;
   setMessage: (msg: string) => void;
   signMessage: () => Promise<void>;
   handleLogout: () => Promise<void>;
   refreshWallet: () => Promise<void>;
 }
 
-export const WalletContext = createContext<WalletContextType | undefined>(
-  undefined
-);
+export const WalletContext = createContext<WalletContextType | undefined>(undefined);
+
+type WALLET_TYPE = "ADDRESS_FORMAT_ETHEREUM" | "ADDRESS_FORMAT_TRON";
 
 export function WalletProvider({ children }: { children: ReactNode }) {
   const { turnkey, indexedDbClient } = useTurnkey();
@@ -43,7 +43,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [message, setMessage] = useState("");
   const [signature, setSignature] = useState<string | null>(null);
 
-  const getEthAddress = async (): Promise<string> => {
+  const getAccountAddress = async (): Promise<string> => {
     try {
       const wallets = await client?.getWallets({
         organizationId: session?.organizationId,
@@ -63,6 +63,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
           return accounts?.accounts || [];
         })
       );
+
+      console.log("Wallets with accounts:", walletsWithAccounts);
 
       // Find the first ETH account
       const ethAccount = walletsWithAccounts
@@ -87,7 +89,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     if (!client || !session) return;
 
     try {
-      const address = await getEthAddress();
+      const address = await getAccountAddress();
       if (typeof address === "string") {
         setEthAddress(address);
       }
@@ -108,10 +110,9 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         const currentSession = await turnkey.getSession();
         if (currentSession?.organizationId) {
           setSession(currentSession);
-     
 
           // Immediately try to get the address
-          const address = await getEthAddress();
+          const address = await getAccountAddress();
           if (address) {
             console.log("Found existing ETH address:", address);
           } else {
@@ -120,7 +121,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
           }
         }
       } catch (err) {
-      
         onError(err);
       } finally {
         setLoading(false);
@@ -140,7 +140,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const signMessage = async () => {
     if (!client || !session) return;
     try {
-      const signWith = await getEthAddress();
+      const signWith = await getAccountAddress();
       if (!signWith) throw new Error("No ETHEREUM wallet found");
 
       const result = await client.signRawPayload({
@@ -156,7 +156,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         setSignature(null);
       }
     } catch (err) {
-     onError(err)
+      onError(err);
       setSignature("Error signing message");
       onError(err);
     }
@@ -184,7 +184,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         signature,
         setMessage,
         signMessage,
-        getEthAddress,
+        getAccountAddress,
         handleLogout,
         refreshWallet,
       }}

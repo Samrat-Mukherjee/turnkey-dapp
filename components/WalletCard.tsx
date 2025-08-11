@@ -18,7 +18,7 @@ export function WalletCard() {
     loading,
     ethAddress,
     refreshWallet,
-    getEthAddress,
+    getAccountAddress,
 
     handleLogout,
   } = useWallet();
@@ -27,7 +27,7 @@ export function WalletCard() {
     const fetchAddress = async () => {
       try {
         if (!loading && !ethAddress) {
-          const address = await getEthAddress();
+          const address = await getAccountAddress();
 
           if (!address) {
             // If no address is found, try refreshing the wallet
@@ -39,7 +39,7 @@ export function WalletCard() {
       }
     };
     fetchAddress();
-  }, [loading, ethAddress, getEthAddress, refreshWallet]);
+  }, [loading, ethAddress, getAccountAddress, refreshWallet]);
 
   const [balance, setBalance] = useState(0.0);
   const [celoBalance, setCeloBalance] = useState(0);
