@@ -287,10 +287,11 @@ interface WalletContextType {
 4. **Configure Turnkey credentials**
    ```bash
    # .env.local
-   NEXT_PUBLIC_TURNKEY_API_BASE_URL=https://api.turnkey.com
-   NEXT_PUBLIC_TURNKEY_ORGANIZATION_ID=your_org_id
-   TURNKEY_API_PRIVATE_KEY=your_private_key
-   TURNKEY_API_PUBLIC_KEY=your_public_key
+   NEXT_PUBLIC_ORGANIZATION_ID=your_organization_id
+   TURNKEY_API_PUBLIC_KEY=your_api_public_key
+   TURNKEY_API_PRIVATE_KEY=your_api_private_key
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000
+   CHAINSTACK_API_KEY=your_chainstack_api_key
    ```
 
 5. **Start the development server**
@@ -309,25 +310,29 @@ Create a `.env.local` file in the root directory:
 
 ```bash
 # Turnkey Configuration
-NEXT_PUBLIC_TURNKEY_API_BASE_URL=https://api.turnkey.com
-NEXT_PUBLIC_TURNKEY_ORGANIZATION_ID=your_organization_id
+NEXT_PUBLIC_ORGANIZATION_ID=your_organization_id
+TURNKEY_API_PUBLIC_KEY=your_api_public_key
+TURNKEY_API_PRIVATE_KEY=your_api_private_key
 
-# Optional: Custom API endpoints
-NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api
+# API Configuration
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
 
-# Development flags
+# Blockchain Services
+CHAINSTACK_API_KEY=your_chainstack_api_key
+
+# Development flags (optional)
 NODE_ENV=development
-NEXT_PUBLIC_DEBUG_MODE=true
 ```
 
 ### Required Environment Variables
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `NEXT_PUBLIC_TURNKEY_ORGANIZATION_ID` | Your Turnkey organization ID | ✅ |
-| `NEXT_PUBLIC_TURNKEY_API_BASE_URL` | Turnkey API endpoint | ✅ |
-| `TURNKEY_API_PRIVATE_KEY` | Your API private key (server-side) | ⚠️ |
-| `TURNKEY_API_PUBLIC_KEY` | Your API public key (server-side) | ⚠️ |
+| `NEXT_PUBLIC_ORGANIZATION_ID` | Your Turnkey organization ID | ✅ |
+| `TURNKEY_API_PUBLIC_KEY` | Your API public key (server-side) | ✅ |
+| `TURNKEY_API_PRIVATE_KEY` | Your API private key (server-side) | ✅ |
+| `NEXT_PUBLIC_BASE_URL` | Base URL for your application | ✅ |
+| `CHAINSTACK_API_KEY` | Chainstack API key for blockchain operations | ✅ |
 
 ## 📚 API Reference
 
